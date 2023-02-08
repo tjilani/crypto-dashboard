@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { AppContext } from "./AppProvider";
+import { useContext } from "react";
 
 const Bar = styled.div`
   display: grid;
@@ -12,6 +14,7 @@ const Logo = styled.div`
 
 const ControllButtonElem = styled.div`
   cursor: pointer;
+
   ${(props) =>
     props.active &&
     css`
@@ -20,7 +23,12 @@ const ControllButtonElem = styled.div`
 `;
 
 const ControllButton = ({ name, active }) => {
-  return <ControllButtonElem active={active}>{name}</ControllButtonElem>;
+  const { page, setPage } = useContext(AppContext);
+  return (
+    <ControllButtonElem active={name === page} onClick={() => setPage(name)}>
+      {name}
+    </ControllButtonElem>
+  );
 };
 
 const AppBar = () => {
